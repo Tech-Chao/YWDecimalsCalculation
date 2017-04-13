@@ -87,7 +87,7 @@ typedef NS_ENUM(NSInteger,CalculationType){
             NSString *strDecimal = [[[[stringResult componentsSeparatedByString:@"."] lastObject] stringByAppendingString:supplementZero] substringToIndex:handler.accuracy];
             stringResult = [NSString stringWithFormat:@"%@.%@",[[stringResult componentsSeparatedByString:@"."] firstObject],strDecimal];
         }else{
-            // 至少幼小数要求才添加0补充
+            // 至少有小数要求才添加0补充
             if (handler.scale != 0) {
                 stringResult = [NSString stringWithFormat:@"%@.%@",stringResult,supplementZero];
             }
