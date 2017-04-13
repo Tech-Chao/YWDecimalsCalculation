@@ -18,42 +18,43 @@ typedef NS_ENUM(NSInteger,CalculationType){
 
 @implementation NSString (DecimalsCalculation)
 
-- (NSString *)stringNumberByAdding:(NSString *)stringNumber{
-    return [self stringNumberByAdding:stringNumber
-                         withBehavior:[YWStringNumberHandler defaultStringNumberHandler]];
+- (NSString *)yw_stringNumberByAdding:(NSString *)stringNumber{
+    return [self yw_stringNumberByAdding:stringNumber
+                            withBehavior:[YWStringNumberHandler defaultStringNumberHandler]];
 }
-- (NSString *)stringNumberBySubtracting:(NSString *)stringNumber{
-    return [self stringNumberBySubtracting:stringNumber withBehavior:[YWStringNumberHandler defaultStringNumberHandler]];
+- (NSString *)yw_stringNumberBySubtracting:(NSString *)stringNumber{
+    return [self yw_stringNumberBySubtracting:stringNumber withBehavior:[YWStringNumberHandler defaultStringNumberHandler]];
 }
-- (NSString *)stringNumberByMultiplyingBy:(NSString *)stringNumber{
-    return [self stringNumberByMultiplyingBy:stringNumber withBehavior:[YWStringNumberHandler defaultStringNumberHandler]];
+- (NSString *)yw_stringNumberByMultiplyingBy:(NSString *)stringNumber{
+    return [self yw_stringNumberByMultiplyingBy:stringNumber withBehavior:[YWStringNumberHandler defaultStringNumberHandler]];
 }
-- (NSString *)stringNumberByDividingBy:(NSString *)stringNumber{
-    return [self stringNumberByDividingBy:stringNumber withBehavior:[YWStringNumberHandler defaultStringNumberHandler]];
-}
-
-
-- (NSString *)stringNumberByAdding:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler{
-    return  [self stringNumberByCalculationType:CalculationAdding by:stringNumber withBehavior:handler];
-}
-- (NSString *)stringNumberBySubtracting:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler{
-    return  [self stringNumberByCalculationType:CalculationSubtracting by:stringNumber withBehavior:handler];
-}
-- (NSString *)stringNumberByMultiplyingBy:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler{
-    return  [self stringNumberByCalculationType:CalculationMultiplying by:stringNumber withBehavior:handler];
-}
-- (NSString *)stringNumberByDividingBy:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler{
-    return  [self stringNumberByCalculationType:CalculationDividing by:stringNumber withBehavior:handler];
+- (NSString *)yw_stringNumberByDividingBy:(NSString *)stringNumber{
+    return [self yw_stringNumberByDividingBy:stringNumber withBehavior:[YWStringNumberHandler defaultStringNumberHandler]];
 }
 
 
-- (NSString *)stringNumberByCalculationType:(CalculationType)type by:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler{
+- (NSString *)yw_stringNumberByAdding:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler{
+    return  [self yw_stringNumberByCalculationType:CalculationAdding by:stringNumber withBehavior:handler];
+}
+- (NSString *)yw_stringNumberBySubtracting:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler{
+    return  [self yw_stringNumberByCalculationType:CalculationSubtracting by:stringNumber withBehavior:handler];
+}
+- (NSString *)yw_stringNumberByMultiplyingBy:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler{
+    return  [self yw_stringNumberByCalculationType:CalculationMultiplying by:stringNumber withBehavior:handler];
+}
+- (NSString *)yw_stringNumberByDividingBy:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler{
+    return  [self yw_stringNumberByCalculationType:CalculationDividing by:stringNumber withBehavior:handler];
+}
+
+
+- (NSString *)yw_stringNumberByCalculationType:(CalculationType)type by:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler{
+    
     
 #ifdef DEBUG
-    NSAssert([self validateDecimalsNum], @"DecimalsCalculation // current string is not validate DecimalsNum");
-    NSAssert([stringNumber validateDecimalsNum], @"DecimalsCalculation // stringNumber is not validate DecimalsNum");
+    NSAssert([self yw_isValidateDecimalsNum], @"DecimalsCalculation // current string is not validate DecimalsNum");
+    NSAssert([stringNumber yw_isValidateDecimalsNum], @"DecimalsCalculation // stringNumber is not validate DecimalsNum");
 #endif
-
+    
     NSDecimalNumber *selfNumber = [NSDecimalNumber decimalNumberWithString:self];
     NSDecimalNumber *calcuationNumber = [NSDecimalNumber decimalNumberWithString:stringNumber];
     
@@ -73,6 +74,7 @@ typedef NS_ENUM(NSInteger,CalculationType){
     if ([stringResult isEqualToString:@"NaN"]) {
         stringResult = @"0";
     }
+    
     if (stringResult.length > 0 && handler.isAutoFilling) {
         /// 添加要显示的0
         NSMutableString *supplementZero = [NSMutableString string];
@@ -85,23 +87,30 @@ typedef NS_ENUM(NSInteger,CalculationType){
             NSString *strDecimal = [[[[stringResult componentsSeparatedByString:@"."] lastObject] stringByAppendingString:supplementZero] substringToIndex:handler.accuracy];
             stringResult = [NSString stringWithFormat:@"%@.%@",[[stringResult componentsSeparatedByString:@"."] firstObject],strDecimal];
         }else{
-            stringResult = [NSString stringWithFormat:@"%@.%@",stringResult,supplementZero];
+            // 至少幼小数要求才添加0补充
+            if (handler.scale != 0) {
+                stringResult = [NSString stringWithFormat:@"%@.%@",stringResult,supplementZero];
+            }
         }
     }
     return stringResult;
 }
 
 
+@end
 
 
-- (BOOL)validateDecimalsNum{
+@implementation NSString (NumberRegex)
+
+- (BOOL)yw_isValidateDecimalsNum{
     BOOL isValid = YES;
     NSUInteger len = self.length;
     if (len > 0) {
-        NSString *numberRegex = @"^-?\\d*.?\\d*";
+        NSString *numberRegex = @"^[-+]?[0-9]*\\.?[0-9]*$";
         NSPredicate *numberPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", numberRegex];
         isValid = [numberPredicate evaluateWithObject:self];
     }
     return isValid;
 }
+
 @end

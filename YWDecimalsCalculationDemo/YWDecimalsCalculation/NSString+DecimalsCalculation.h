@@ -66,20 +66,27 @@ typedef NS_ENUM(NSUInteger, NSRoundingMode) {
 @interface NSString (DecimalsCalculation)
 
 // Adding
-- (NSString *)stringNumberByAdding:(NSString *)stringNumber;
-- (NSString *)stringNumberByAdding:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler;
+- (NSString *)yw_stringNumberByAdding:(NSString *)stringNumber;
+- (NSString *)yw_stringNumberByAdding:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler;
 
 // Subtracting
-- (NSString *)stringNumberBySubtracting:(NSString *)stringNumber;
-- (NSString *)stringNumberBySubtracting:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler;
+- (NSString *)yw_stringNumberBySubtracting:(NSString *)stringNumber;
+- (NSString *)yw_stringNumberBySubtracting:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler;
 
 // Multiplying
-- (NSString *)stringNumberByMultiplyingBy:(NSString *)stringNumber;
-- (NSString *)stringNumberByMultiplyingBy:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler;
+- (NSString *)yw_stringNumberByMultiplyingBy:(NSString *)stringNumber;
+- (NSString *)yw_stringNumberByMultiplyingBy:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler;
 
 // Dividing
-- (NSString *)stringNumberByDividingBy:(NSString *)stringNumber;
-- (NSString *)stringNumberByDividingBy:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler;
+- (NSString *)yw_stringNumberByDividingBy:(NSString *)stringNumber;
+- (NSString *)yw_stringNumberByDividingBy:(NSString *)stringNumber withBehavior:(YWStringNumberHandler *)handler;
 
 @end
- 
+
+
+
+@interface NSString (NumberRegex)
+
+- (BOOL)yw_isValidateDecimalsNum;
+
+@end
