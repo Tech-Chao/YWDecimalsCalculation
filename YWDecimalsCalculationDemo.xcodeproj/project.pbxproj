@@ -8,20 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		662D9E881DD05BF9006B80DA /* NSString+DecimalsCalculation.m in Sources */ = {isa = PBXBuildFile; fileRef = 662D9E851DD05BF9006B80DA /* NSString+DecimalsCalculation.m */; };
-		662D9E891DD05BF9006B80DA /* YWStringNumberHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 662D9E871DD05BF9006B80DA /* YWStringNumberHandler.m */; };
 		66F52CF81DCC3AA700FCCE15 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F52CF71DCC3AA700FCCE15 /* main.m */; };
 		66F52CFB1DCC3AA700FCCE15 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F52CFA1DCC3AA700FCCE15 /* AppDelegate.m */; };
 		66F52CFE1DCC3AA700FCCE15 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F52CFD1DCC3AA700FCCE15 /* ViewController.m */; };
 		66F52D011DCC3AA700FCCE15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66F52CFF1DCC3AA700FCCE15 /* Main.storyboard */; };
 		66F52D031DCC3AA700FCCE15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66F52D021DCC3AA700FCCE15 /* Assets.xcassets */; };
 		66F52D061DCC3AA700FCCE15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66F52D041DCC3AA700FCCE15 /* LaunchScreen.storyboard */; };
+		D48358AE1F4D9B5100761E92 /* YWDecimalNumberHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = D48358AD1F4D9B5100761E92 /* YWDecimalNumberHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		662D9E841DD05BF9006B80DA /* NSString+DecimalsCalculation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DecimalsCalculation.h"; sourceTree = "<group>"; };
 		662D9E851DD05BF9006B80DA /* NSString+DecimalsCalculation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DecimalsCalculation.m"; sourceTree = "<group>"; };
-		662D9E861DD05BF9006B80DA /* YWStringNumberHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWStringNumberHandler.h; sourceTree = "<group>"; };
-		662D9E871DD05BF9006B80DA /* YWStringNumberHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWStringNumberHandler.m; sourceTree = "<group>"; };
 		66F52CF31DCC3AA700FCCE15 /* YWDecimalsCalculationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YWDecimalsCalculationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66F52CF71DCC3AA700FCCE15 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		66F52CF91DCC3AA700FCCE15 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -32,6 +30,8 @@
 		66F52D021DCC3AA700FCCE15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66F52D051DCC3AA700FCCE15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		66F52D071DCC3AA700FCCE15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D48358AC1F4D9B5100761E92 /* YWDecimalNumberHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWDecimalNumberHandler.h; sourceTree = "<group>"; };
+		D48358AD1F4D9B5100761E92 /* YWDecimalNumberHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWDecimalNumberHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,8 +50,8 @@
 			children = (
 				662D9E841DD05BF9006B80DA /* NSString+DecimalsCalculation.h */,
 				662D9E851DD05BF9006B80DA /* NSString+DecimalsCalculation.m */,
-				662D9E861DD05BF9006B80DA /* YWStringNumberHandler.h */,
-				662D9E871DD05BF9006B80DA /* YWStringNumberHandler.m */,
+				D48358AC1F4D9B5100761E92 /* YWDecimalNumberHandler.h */,
+				D48358AD1F4D9B5100761E92 /* YWDecimalNumberHandler.m */,
 			);
 			path = YWDecimalsCalculation;
 			sourceTree = "<group>";
@@ -169,8 +169,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				66F52CFE1DCC3AA700FCCE15 /* ViewController.m in Sources */,
-				662D9E891DD05BF9006B80DA /* YWStringNumberHandler.m in Sources */,
 				662D9E881DD05BF9006B80DA /* NSString+DecimalsCalculation.m in Sources */,
+				D48358AE1F4D9B5100761E92 /* YWDecimalNumberHandler.m in Sources */,
 				66F52CFB1DCC3AA700FCCE15 /* AppDelegate.m in Sources */,
 				66F52CF81DCC3AA700FCCE15 /* main.m in Sources */,
 			);

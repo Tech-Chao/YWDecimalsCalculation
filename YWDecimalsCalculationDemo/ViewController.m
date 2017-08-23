@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "NSString+DecimalsCalculation.h"
-#import "YWStringNumberHandler.h"
+#import "YWDecimalNumberHandler.h"
 
 @interface ViewController ()
 
@@ -19,7 +19,7 @@
 @property (nonatomic, weak) UIButton *selectedBtn;
 @property (weak, nonatomic) IBOutlet UIButton *plusBtn;
 
-@property (nonatomic, strong) YWStringNumberHandler *handler;
+@property (nonatomic, strong) YWDecimalNumberHandler *handler;
 
 @end
 
@@ -30,7 +30,7 @@
     [self btnSelected:self.plusBtn];
     
     // 加法作自定义结果处理
-    _handler = [[YWStringNumberHandler alloc] initWithRoundingMode:NSRoundPlain scale:4 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES isAutoFilling:YES];
+    _handler = [[YWDecimalNumberHandler alloc] initWithRoundingMode:NSRoundPlain scale:4 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
 }
 
 - (IBAction)btnSelected:(UIButton *)sender {
