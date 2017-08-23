@@ -1,6 +1,6 @@
 //
 //  NSString+DecimalsCalculation.h
-//  YWDecimalsCalculationDemo
+//  YWDecimalsCalculation
 //
 //  Created by FishYu on 16/11/4.
 //  Copyright © 2016年 codeFisher. All rights reserved.
@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 @class YWDecimalNumberHandler;
-
 /**
 // Rounding policies :
 // Original
@@ -25,9 +24,6 @@ typedef NS_ENUM(NSUInteger, NSRoundingMode) {
     NSRoundBankers  // on a tie round so last digit is even
 };
  */
-
-
-
 @interface NSString (DecimalsCalculation)
 
 // Adding

@@ -1,6 +1,6 @@
 //
 //  NSString+DecimalsCalculation.m
-//  YWDecimalsCalculationDemo
+//  YWDecimalsCalculation
 //
 //  Created by FishYu on 16/11/4.
 //  Copyright © 2016年 codeFisher. All rights reserved.
@@ -9,15 +9,16 @@
 #import "NSString+DecimalsCalculation.h"
 #import "YWDecimalNumberHandler.h"
 
-static NSNumberFormatter * YWDecimalNumberFormatter(NSUInteger scale){
+static NSNumberFormatter * YWDecimalNumberFormatter(NSUInteger scale,NSNumberFormatterStyle formatterStyle){
     
     static NSNumberFormatter *numberFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         numberFormatter = [NSNumberFormatter new];
-        numberFormatter.numberStyle = kCFNumberFormatterNoStyle;
         numberFormatter.alwaysShowsDecimalSeparator = YES;
     });
+    
+    numberFormatter.numberStyle = formatterStyle;
     numberFormatter.minimumFractionDigits = scale;
     return numberFormatter;
 }
@@ -76,10 +77,10 @@ typedef NS_ENUM(NSInteger,CalculationType){
         result = [selfNumber decimalNumberByDividingBy:calcuationNumber withBehavior:handler];
     }
     
-    // 精度
+    // 设置的精度
     short scale =  [handler scale];
-    NSNumberFormatter *numberFormatter = YWDecimalNumberFormatter((NSUInteger)scale);
-    NSLog(@"%@",numberFormatter);
+    // 如果自定义了结果格式化工具使用自定义formatter
+    NSNumberFormatter *numberFormatter = handler.numberFormatter?:YWDecimalNumberFormatter((NSUInteger)scale,handler.formatterStyle);
     return [numberFormatter stringFromNumber:result];
 }
 
