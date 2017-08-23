@@ -2,6 +2,8 @@
 Usage 
 ===
 
+新版本采用NSNumberFormatter格式化计算结果，直接通过scale设置最后计算结果的小数点位数
+
 ```objc
 
 // result = @"12.00"
