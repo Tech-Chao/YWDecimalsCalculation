@@ -30,7 +30,7 @@
     [self btnSelected:self.plusBtn];
     
     // 加法作自定义结果处理
-    _handler = [[YWDecimalNumberHandler alloc] initWithRoundingMode:NSRoundPlain scale:4 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
+    _handler = [YWDecimalNumberHandler defaultStringNumberHandler];
 }
 
 - (IBAction)btnSelected:(UIButton *)sender {
@@ -39,6 +39,10 @@
         sender.selected = YES;
         self.selectedBtn = sender;
     }
+}
+
+- (IBAction)numberFormatterChoose:(UIButton *)sender {
+    _handler.formatterStyle = (NSNumberFormatterStyle)sender.tag;
 }
 
 
@@ -51,13 +55,13 @@
             str = [self.firstTextfield.text yw_stringNumberByAdding:self.secondTextfield.text withBehavior:_handler];
             break;
         case 2:
-            str =  [self.firstTextfield.text yw_stringNumberBySubtracting:self.secondTextfield.text];
+            str =  [self.firstTextfield.text yw_stringNumberBySubtracting:self.secondTextfield.text withBehavior:_handler];
             break;
         case 3:
-            str =   [self.firstTextfield.text yw_stringNumberByMultiplyingBy:self.secondTextfield.text];
+            str =   [self.firstTextfield.text yw_stringNumberByMultiplyingBy:self.secondTextfield.text withBehavior:_handler];
             break;
         case 4:
-            str =  [self.firstTextfield.text yw_stringNumberByDividingBy:self.secondTextfield.text];
+            str =  [self.firstTextfield.text yw_stringNumberByDividingBy:self.secondTextfield.text withBehavior:_handler];
             break;
         default:
             break;

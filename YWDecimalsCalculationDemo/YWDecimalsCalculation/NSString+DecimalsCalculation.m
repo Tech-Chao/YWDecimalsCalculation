@@ -16,6 +16,7 @@ static NSNumberFormatter * YWDecimalNumberFormatter(NSUInteger scale,NSNumberFor
     dispatch_once(&onceToken, ^{
         numberFormatter = [NSNumberFormatter new];
         numberFormatter.alwaysShowsDecimalSeparator = YES;
+        numberFormatter.minimumIntegerDigits = 1;
     });
     
     numberFormatter.numberStyle = formatterStyle;
@@ -48,20 +49,20 @@ typedef NS_ENUM(NSInteger,CalculationType){
 
 
 - (NSString *)yw_stringNumberByAdding:(NSString *)stringNumber withBehavior:(YWDecimalNumberHandler *)handler{
-    return  [self yw_stringNumberByCalculationType:CalculationAdding by:stringNumber withBehavior:handler];
+    return  [self _stringNumberByCalculationType:CalculationAdding by:stringNumber withBehavior:handler];
 }
 - (NSString *)yw_stringNumberBySubtracting:(NSString *)stringNumber withBehavior:(YWDecimalNumberHandler *)handler{
-    return  [self yw_stringNumberByCalculationType:CalculationSubtracting by:stringNumber withBehavior:handler];
+    return  [self _stringNumberByCalculationType:CalculationSubtracting by:stringNumber withBehavior:handler];
 }
 - (NSString *)yw_stringNumberByMultiplyingBy:(NSString *)stringNumber withBehavior:(YWDecimalNumberHandler *)handler{
-    return  [self yw_stringNumberByCalculationType:CalculationMultiplying by:stringNumber withBehavior:handler];
+    return  [self _stringNumberByCalculationType:CalculationMultiplying by:stringNumber withBehavior:handler];
 }
 - (NSString *)yw_stringNumberByDividingBy:(NSString *)stringNumber withBehavior:(YWDecimalNumberHandler *)handler{
-    return  [self yw_stringNumberByCalculationType:CalculationDividing by:stringNumber withBehavior:handler];
+    return  [self _stringNumberByCalculationType:CalculationDividing by:stringNumber withBehavior:handler];
 }
 
 
-- (NSString *)yw_stringNumberByCalculationType:(CalculationType)type by:(NSString *)stringNumber withBehavior:(YWDecimalNumberHandler *)handler{
+- (NSString *)_stringNumberByCalculationType:(CalculationType)type by:(NSString *)stringNumber withBehavior:(YWDecimalNumberHandler *)handler{
     
     NSDecimalNumber *selfNumber = [NSDecimalNumber decimalNumberWithString:self];
     NSDecimalNumber *calcuationNumber = [NSDecimalNumber decimalNumberWithString:stringNumber];
