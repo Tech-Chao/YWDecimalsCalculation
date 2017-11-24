@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "NSString+DecimalsCalculation.h"
-#import "YWDecimalNumberHandler.h"
 
 @interface ViewController ()
 
@@ -29,8 +28,6 @@
     [super viewDidLoad];
     [self btnSelected:self.plusBtn];
     
-    // 加法作自定义结果处理
-    _handler = [YWDecimalNumberHandler defaultStringNumberHandler];
 }
 
 - (IBAction)btnSelected:(UIButton *)sender {
@@ -40,10 +37,7 @@
         self.selectedBtn = sender;
     }
 }
-
-- (IBAction)numberFormatterChoose:(UIButton *)sender {
-    _handler.formatterStyle = (NSNumberFormatterStyle)sender.tag;
-}
+ 
 
 
 - (IBAction)getResult:(UIButton *)sender {
@@ -52,16 +46,16 @@
     
     switch (self.selectedBtn.tag) {
         case 1:
-            str = [self.firstTextfield.text yw_stringNumberByAdding:self.secondTextfield.text withBehavior:_handler];
+            str = [self.firstTextfield.text yw_stringByAdding:self.secondTextfield.text];
             break;
         case 2:
-            str =  [self.firstTextfield.text yw_stringNumberBySubtracting:self.secondTextfield.text withBehavior:_handler];
+            str = [self.firstTextfield.text yw_stringBySubtracting:self.secondTextfield.text];
             break;
         case 3:
-            str =   [self.firstTextfield.text yw_stringNumberByMultiplyingBy:self.secondTextfield.text withBehavior:_handler];
+            str = [self.firstTextfield.text yw_stringByMultiplyingBy:self.secondTextfield.text];
             break;
         case 4:
-            str =  [self.firstTextfield.text yw_stringNumberByDividingBy:self.secondTextfield.text withBehavior:_handler];
+            str = [self.firstTextfield.text yw_stringByDividingBy:self.secondTextfield.text];
             break;
         default:
             break;

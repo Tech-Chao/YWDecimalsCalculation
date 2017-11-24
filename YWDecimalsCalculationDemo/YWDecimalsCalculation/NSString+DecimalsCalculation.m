@@ -7,22 +7,7 @@
 //
 
 #import "NSString+DecimalsCalculation.h"
-#import "YWDecimalNumberHandler.h"
 
-static NSNumberFormatter * YWDecimalNumberFormatter(NSUInteger scale,NSNumberFormatterStyle formatterStyle){
-    
-    static NSNumberFormatter *numberFormatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        numberFormatter = [NSNumberFormatter new];
-        numberFormatter.alwaysShowsDecimalSeparator = YES;
-        numberFormatter.minimumIntegerDigits = 1;
-    });
-    
-    numberFormatter.numberStyle = formatterStyle;
-    numberFormatter.minimumFractionDigits = scale;
-    return numberFormatter;
-}
 // CalculationType
 typedef NS_ENUM(NSInteger,CalculationType){
     CalculationAdding,
@@ -33,57 +18,87 @@ typedef NS_ENUM(NSInteger,CalculationType){
 
 @implementation NSString (DecimalsCalculation)
 
-- (NSString *)yw_stringNumberByAdding:(NSString *)stringNumber{
-    return [self yw_stringNumberByAdding:stringNumber
-                            withBehavior:[YWDecimalNumberHandler defaultStringNumberHandler]];
+// Adding
+- (NSString *)yw_stringByAdding:(NSString *)stringNumber {
+    return [self yw_stringByAdding:stringNumber withRoundingMode:NSRoundPlain scale:2];
 }
-- (NSString *)yw_stringNumberBySubtracting:(NSString *)stringNumber{
-    return [self yw_stringNumberBySubtracting:stringNumber withBehavior:[YWDecimalNumberHandler defaultStringNumberHandler]];
+- (NSString *)yw_stringByAdding:(NSString *)stringNumber withRoundingMode:(NSRoundingMode)roundingModel {
+    return [self yw_stringByAdding:stringNumber withRoundingMode:roundingModel scale:2];
 }
-- (NSString *)yw_stringNumberByMultiplyingBy:(NSString *)stringNumber{
-    return [self yw_stringNumberByMultiplyingBy:stringNumber withBehavior:[YWDecimalNumberHandler defaultStringNumberHandler]];
+- (NSString *)yw_stringByAdding:(NSString *)stringNumber withRoundingMode:(NSRoundingMode)roundingModel scale:(NSInteger)scale {
+    return [self _stringByCalculationType:CalculationAdding by:stringNumber roundingMode:roundingModel scale:scale];
 }
-- (NSString *)yw_stringNumberByDividingBy:(NSString *)stringNumber{
-    return [self yw_stringNumberByDividingBy:stringNumber withBehavior:[YWDecimalNumberHandler defaultStringNumberHandler]];
+
+// Substracting
+- (NSString *)yw_stringBySubtracting:(NSString *)stringNumber {
+    return [self  yw_stringBySubtracting:stringNumber withRoundingMode:NSRoundPlain scale:2];
+}
+- (NSString *)yw_stringBySubtracting:(NSString *)stringNumber withRoundingMode:(NSRoundingMode)roundingModel {
+    return [self  yw_stringBySubtracting:stringNumber withRoundingMode:roundingModel scale:2];
+}
+- (NSString *)yw_stringBySubtracting:(NSString *)stringNumber withRoundingMode:(NSRoundingMode)roundingModel scale:(NSInteger)scale {
+    return [self _stringByCalculationType:CalculationSubtracting by:stringNumber roundingMode:roundingModel scale:scale];
+}
+
+// Multiplying
+- (NSString *)yw_stringByMultiplyingBy:(NSString *)stringNumber {
+    return [self yw_stringByMultiplyingBy:stringNumber withRoundingMode:NSRoundPlain scale:2];
+}
+- (NSString *)yw_stringByMultiplyingBy:(NSString *)stringNumber withRoundingMode:(NSRoundingMode)roundingModel {
+    return [self yw_stringByMultiplyingBy:stringNumber withRoundingMode:roundingModel scale:2];
+}
+- (NSString *)yw_stringByMultiplyingBy:(NSString *)stringNumber withRoundingMode:(NSRoundingMode)roundingModel scale:(NSInteger)scale {
+    return [self _stringByCalculationType:CalculationMultiplying by:stringNumber roundingMode:roundingModel scale:scale];
+}
+
+// Dividing
+- (NSString *)yw_stringByDividingBy:(NSString *)stringNumber {
+    return [self yw_stringByDividingBy:stringNumber withRoundingMode:NSRoundPlain scale:2];
+}
+- (NSString *)yw_stringByDividingBy:(NSString *)stringNumber withRoundingMode:(NSRoundingMode)roundingModel {
+    return [self yw_stringByDividingBy:stringNumber withRoundingMode:roundingModel scale:2];
+}
+- (NSString *)yw_stringByDividingBy:(NSString *)stringNumber withRoundingMode:(NSRoundingMode)roundingModel scale:(NSInteger)scale {
+    return [self _stringByCalculationType:CalculationMultiplying by:stringNumber roundingMode:roundingModel scale:scale];
 }
 
 
-- (NSString *)yw_stringNumberByAdding:(NSString *)stringNumber withBehavior:(YWDecimalNumberHandler *)handler{
-    return  [self _stringNumberByCalculationType:CalculationAdding by:stringNumber withBehavior:handler];
-}
-- (NSString *)yw_stringNumberBySubtracting:(NSString *)stringNumber withBehavior:(YWDecimalNumberHandler *)handler{
-    return  [self _stringNumberByCalculationType:CalculationSubtracting by:stringNumber withBehavior:handler];
-}
-- (NSString *)yw_stringNumberByMultiplyingBy:(NSString *)stringNumber withBehavior:(YWDecimalNumberHandler *)handler{
-    return  [self _stringNumberByCalculationType:CalculationMultiplying by:stringNumber withBehavior:handler];
-}
-- (NSString *)yw_stringNumberByDividingBy:(NSString *)stringNumber withBehavior:(YWDecimalNumberHandler *)handler{
-    return  [self _stringNumberByCalculationType:CalculationDividing by:stringNumber withBehavior:handler];
-}
-
-
-- (NSString *)_stringNumberByCalculationType:(CalculationType)type by:(NSString *)stringNumber withBehavior:(YWDecimalNumberHandler *)handler{
+- (NSString *)_stringByCalculationType:(CalculationType)type by:(NSString *)stringNumber roundingMode:(NSRoundingMode)roundingModel scale:(NSUInteger)scale{
     
     NSDecimalNumber *selfNumber = [NSDecimalNumber decimalNumberWithString:self];
     NSDecimalNumber *calcuationNumber = [NSDecimalNumber decimalNumberWithString:stringNumber];
-   
+    NSDecimalNumberHandler *handler = [[NSDecimalNumberHandler alloc] initWithRoundingMode:roundingModel scale:scale raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:YES];
+    
     NSDecimalNumber *result = nil;
-    if (CalculationAdding == type) {
-        result = [selfNumber decimalNumberByAdding:calcuationNumber withBehavior:handler];
-    }else if (CalculationSubtracting == type){
-        result = [selfNumber decimalNumberBySubtracting:calcuationNumber withBehavior:handler];
-    }else if (CalculationMultiplying == type){
-        result = [selfNumber decimalNumberByMultiplyingBy:calcuationNumber withBehavior:handler];
-    }else if (CalculationDividing == type){
-        result = [selfNumber decimalNumberByDividingBy:calcuationNumber withBehavior:handler];
+    switch (type) {
+        case CalculationAdding:
+            result = [selfNumber decimalNumberByAdding:calcuationNumber withBehavior:handler];
+            break;
+        case CalculationSubtracting:
+            result =  [selfNumber decimalNumberBySubtracting:calcuationNumber withBehavior:handler];
+            break;
+        case CalculationMultiplying:
+            result = [selfNumber decimalNumberByMultiplyingBy:calcuationNumber withBehavior:handler];
+            break;
+        case CalculationDividing:
+            result =[selfNumber decimalNumberByDividingBy:calcuationNumber withBehavior:handler];
+            break;
     }
     
-    // 设置的精度
-    short scale =  [handler scale];
     // 如果自定义了结果格式化工具使用自定义formatter
-    NSNumberFormatter *numberFormatter = handler.numberFormatter?:YWDecimalNumberFormatter((NSUInteger)scale,handler.formatterStyle);
+    
+    NSNumberFormatter *numberFormatter = [self _numberFormatterWithScale:scale];
     return [numberFormatter stringFromNumber:result];
 }
 
+- (NSNumberFormatter *)_numberFormatterWithScale:(NSInteger)scale{
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    numberFormatter.alwaysShowsDecimalSeparator = YES;
+    numberFormatter.minimumIntegerDigits = 1;
+    numberFormatter.numberStyle = kCFNumberFormatterNoStyle;
+    numberFormatter.minimumFractionDigits = scale;
+    return numberFormatter;
+}
 
 @end
+
