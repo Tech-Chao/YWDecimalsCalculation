@@ -59,7 +59,7 @@ typedef NS_ENUM(NSInteger,CalculationType){
     return [self yw_stringByDividingBy:stringNumber withRoundingMode:roundingModel scale:2];
 }
 - (NSString *)yw_stringByDividingBy:(NSString *)stringNumber withRoundingMode:(NSRoundingMode)roundingModel scale:(NSInteger)scale {
-    return [self _stringByCalculationType:CalculationMultiplying by:stringNumber roundingMode:roundingModel scale:scale];
+    return [self _stringByCalculationType:CalculationDividing by:stringNumber roundingMode:roundingModel scale:scale];
 }
 
 
