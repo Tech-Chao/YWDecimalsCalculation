@@ -17,7 +17,12 @@ typedef NS_ENUM(NSInteger,CalculationType){
 };
 
 @implementation NSString (DecimalsCalculation)
-
+// Compare
+- (NSComparisonResult)yw_numberStringCompare:(NSString *)numberString {
+    NSDecimalNumber *selfNumber = [NSDecimalNumber decimalNumberWithString:self];
+    NSDecimalNumber *calcuationNumber = [NSDecimalNumber decimalNumberWithString:numberString];
+    return [selfNumber compare:calcuationNumber];
+}
 // Adding
 - (NSString *)yw_stringByAdding:(NSString *)stringNumber {
     return [self yw_stringByAdding:stringNumber withRoundingMode:NSRoundPlain scale:2];
@@ -85,8 +90,7 @@ typedef NS_ENUM(NSInteger,CalculationType){
             break;
     }
     
-    // 如果自定义了结果格式化工具使用自定义formatter
-    
+    //  使用自定义formatter
     NSNumberFormatter *numberFormatter = [self _numberFormatterWithScale:scale];
     return [numberFormatter stringFromNumber:result];
 }

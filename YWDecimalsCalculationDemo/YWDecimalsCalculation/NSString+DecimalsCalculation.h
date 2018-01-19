@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class YWDecimalNumberHandler;
+
 /**
  // Rounding policies :
  // Original
@@ -27,6 +28,13 @@
 
 @interface NSString (DecimalsCalculation)
 
+// 数字字符比较
+/*
+ @return NSComparisonResult
+ NSOrderedAscending = -1L, NSOrderedSame,           NSOrderedDescending
+ 当前数小于numberString      当前数等于numberString      当前数大于numberString
+ */
+- (NSComparisonResult)yw_numberStringCompare:(NSString *)numberString;
 // 加
 /**
  加法计算，默认保留两位小数，默认采用四舍五入的方式处理计算结果,
@@ -61,7 +69,6 @@
 - (NSString *)yw_stringByMultiplyingBy:(NSString *)stringNumber withRoundingMode:(NSRoundingMode)roundingModel scale:(NSInteger)scale;
 
 // 除
-
 /**
  除法计算，默认保留两位小数，默认采用四舍五入的方式处理计算结果
  roundingModel决定四舍五入的方式，scale决定保留小数个数
