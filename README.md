@@ -26,5 +26,5 @@ NSString  *result = [@"10.4"  yw_stringByMultiplyingBy:@"2" withRoundingMode:NSR
 NSString  *result = [@"10.4"  yw_stringByDividingBy:@"2"]; // @"5.20"
 ``` 
 
-在使用过程中如果有任何疑问可以给我issue，如果觉得你的问题的有帮助话给个Star吧！！🙂
+在使用过程中如果有任何疑问可以给我issue，如果觉得对你的问题的有所帮助话给个Star✨吧！！🙂
 
