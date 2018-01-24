@@ -96,10 +96,14 @@ typedef NS_ENUM(NSInteger,CalculationType){
 }
 
 - (NSNumberFormatter *)_numberFormatterWithScale:(NSInteger)scale{
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    numberFormatter.alwaysShowsDecimalSeparator = YES;
-    numberFormatter.minimumIntegerDigits = 1;
-    numberFormatter.numberStyle = kCFNumberFormatterNoStyle;
+    static NSNumberFormatter *numberFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        numberFormatter = [[NSNumberFormatter alloc] init];
+        numberFormatter.minimumIntegerDigits = 1;
+        numberFormatter.numberStyle = kCFNumberFormatterNoStyle;
+    });
+    numberFormatter.alwaysShowsDecimalSeparator = !(scale == 0);
     numberFormatter.minimumFractionDigits = scale;
     return numberFormatter;
 }
