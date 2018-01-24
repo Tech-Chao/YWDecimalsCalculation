@@ -18,7 +18,7 @@ ps:开发可以通过设置RoudingMode和scale来设置计算结果的四舍五�
 ```objc
 // 10.4+2: 四舍五入不保留小数
 NSString  *result = [@"10.4" yw_stringByAdding:@"2" withRoundingMode:NSRoundPlain scale:0];  // @"12"
-// 10.4-2：向下取整保留一位小数
+// 10.4-2：向下取值保留一位小数
 NSString  *result = [@"10.4" yw_stringBySubtracting:@"2" withRoundingMode:NSRoundDown scale:1];  // @"8.4"
 // 10.4*2: 四舍五入，保留三位小数
 NSString  *result = [@"10.4"  yw_stringByMultiplyingBy:@"2" withRoundingMode:NSRoundPlain scale:3]; // @"20.800"
