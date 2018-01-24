@@ -2,24 +2,6 @@
 Usage 
 ===
 
-新版本采用NSNumberFormatter格式化计算结果，直接通过scale设置最后计算结果的小数点位数
-
-```objc
-
-// result = @"12.00"
-NSString  *result = [@"10" yw_stringByAdding:@"2"];  
-
-
-NSString  *result =  [@"10"  yw_stringBySubtracting:@"2"]; // @"8.00"
-NSString  *result =  [@"10"  yw_stringByMultiplyingBy:@"2"]; // @"20.00"
-NSString  *result =  [@"10"  yw_stringByDividingBy:@"2"]; // @"5.00"
-``` 
-
-#### NSNumberHandler：
-- Default: NSRoundPlain scale:2 raiseOnExactness:NO raiseOnOverflow:NO  raiseOnDivideByZero:YES 
-- 默认：保留两位小数、向上、向下、精度溢出都不抛出异常、除0时抛出. 
-
-###  RoundingMode:
 ```
 // Rounding policies :
 // Original
@@ -31,4 +13,18 @@ NSString  *result =  [@"10"  yw_stringByDividingBy:@"2"]; // @"5.00"
 
 ```
 
+新版本采用NSNumberFormatter格式化计算结果，直接通过scale设置最后计算结果的小数点位数，下面是部分计算例子：
+ps:开发可以通过设置RoudingMode和scale来设置计算结果的四舍五入的方式和保留小数的位数。
+```objc
+// 10.4+2: 四舍五入不保留小数
+NSString  *result = [@"10.4" yw_stringByAdding:@"2" withRoundingMode:NSRoundPlain scale:0];  // @"12"
+// 10.4-2：向下取整保留一位小数
+NSString  *result = [@"10.4" yw_stringBySubtracting:@"2" withRoundingMode:NSRoundDown scale:1];  // @"8.4"
+// 10.4*2: 四舍五入，保留三位小数
+NSString  *result = [@"10.4"  yw_stringByMultiplyingBy:@"2" withRoundingMode:NSRoundPlain scale:3]; // @"20.800"
+// 10.4÷2：默认四舍五入，保留两位小数
+NSString  *result = [@"10.4"  yw_stringByDividingBy:@"2"]; // @"5.20"
+``` 
+
+在使用过程中如果有任何疑问可以给我issue，如果觉得你的问题的有帮助话给个Star吧！！🙂
 
