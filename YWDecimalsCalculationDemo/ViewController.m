@@ -18,8 +18,6 @@
 @property (nonatomic, weak) UIButton *selectedBtn;
 @property (weak, nonatomic) IBOutlet UIButton *plusBtn;
 
-@property (nonatomic, strong) YWDecimalNumberHandler *handler;
-
 @end
 
 @implementation ViewController
